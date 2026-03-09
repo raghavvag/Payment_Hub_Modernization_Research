@@ -1,0 +1,23 @@
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# Build
+build/
+out/
+*.class
+*.jar
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Gradle
+.gradle/
+gradle/wrapper/gradle-wrapper.jar
+
