@@ -1,0 +1,47 @@
+Gradle 9.0 Build Log — ph-ee-connector-common
+==================================================
+Date: March 2026
+Environment: JDK 21.0.10 Temurin, Gradle 9.0, Windows 11
+
+=== INITIAL ATTEMPT (before fixes) ===
+
+FAILURE: Build failed with an exception.
+
+* Where:
+Build file 'D:\ph-ee-connector-common\build.gradle' line: 10
+
+* What went wrong:
+An exception occurred applying plugin request [id: 'com.jfrog.artifactory', version: '4.24.23']
+> Failed to apply plugin 'com.jfrog.artifactory'.
+   > Could not get unknown property 'convention' for root project 'ph-ee-connector-common' of type org.gradle.api.Project.
+
+BUILD FAILED in 58s
+
+=== AFTER ALL FIXES (Phase 9) ===
+
+Welcome to Gradle 9.0.0!
+
+> Task :compileJava
+AuthConfig.java:36: warning: [deprecation] RSA256(RSAKey) in Algorithm deprecated
+JWSUtil.java:231: warning: [deprecation] setVisibilityChecker() deprecated
+WebMvcConfig.java:37: warning: [unchecked] unchecked call to setFilter(T)
+WebMvcConfig.java:49: warning: [unchecked] unchecked call to setFilter(T)
+InterledgerPayment.java:40: warning: [cast] redundant cast to String
+InterledgerPayment.java:45: warning: [cast] redundant cast to byte[]
+InterledgerPayment.java:63: warning: [cast] redundant cast to String
+InterledgerPayment.java:64: warning: [cast] redundant cast to byte[]
+8 warnings
+
+> Task :compileTestJava
+OnboardDfsps.java:329: warning: [deprecation] getStatusCodeValue() deprecated
+OnboardDfsps.java:330: warning: [deprecation] getStatusCodeValue() deprecated
+OnboardDfsps.java:341: warning: [deprecation] getStatusCodeValue() deprecated
+3 warnings
+
+> Task :test SKIPPED
+> Task :build
+
+BUILD SUCCESSFUL in 6s
+
+ZERO Gradle deprecation warnings.
+

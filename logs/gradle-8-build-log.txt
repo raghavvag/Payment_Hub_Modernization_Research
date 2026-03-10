@@ -1,0 +1,33 @@
+Gradle 8.12.1 Build Log — ph-ee-connector-common
+==================================================
+Date: March 2026
+Environment: JDK 21.0.10 Temurin, Gradle 8.12.1, Windows 11
+
+> Task :compileJava
+warning: No processor claimed any of these annotations:
+  /com.fasterxml.jackson.databind.annotation.JsonSerialize,
+  /javax.validation.Constraint,
+  /org.springframework.context.annotation.ComponentScan,
+  ...
+AuthConfig.java:36: warning: [deprecation] RSA256(RSAKey) in Algorithm has been deprecated
+JWSUtil.java:231: warning: [deprecation] setVisibilityChecker() in ObjectMapper deprecated
+WebMvcConfig.java:37: warning: [unchecked] unchecked call to setFilter(T) raw type
+WebMvcConfig.java:49: warning: [unchecked] unchecked call to setFilter(T) raw type
+InterledgerPayment.java:40: warning: [cast] redundant cast to String
+InterledgerPayment.java:45: warning: [cast] redundant cast to byte[]
+InterledgerPayment.java:63: warning: [cast] redundant cast to String
+InterledgerPayment.java:64: warning: [cast] redundant cast to byte[]
+9 warnings
+
+> Task :compileTestJava
+> Task :processTestResources
+> Task :testClasses
+> Task :test
+> Task :jar
+> Task :build
+
+BUILD SUCCESSFUL in 14s
+14 actionable tasks: 14 executed
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+

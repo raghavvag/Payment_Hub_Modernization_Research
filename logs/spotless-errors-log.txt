@@ -1,0 +1,27 @@
+Spotless Errors Log — ph-ee-connector-common
+==================================================
+Date: March 2026
+Environment: Gradle 8.12.1, Spotless 6.19.0
+
+Execution failed for task ':spotlessGroovyGradleCheck'.
+> The following files had format violations:
+    build.gradle
+        @@ -5,8 +5,8 @@
+        -    id 'checkstyle'\r\n
+        -    id 'com.diffplug.spotless' version '6.19.0'\r\n
+        +    id 'checkstyle'
+        +    id 'com.diffplug.spotless' version '6.19.0'
+
+Root cause: Windows CRLF line endings vs Spotless lineEndings = 'UNIX'
+Resolution: ./gradlew spotlessApply
+
+POM Validation Warnings (non-blocking):
+'modelVersion' must be one of [4.0.0] but is '4.0'
+  in org.eclipse.platform:org.eclipse.compare:3.8.500
+  in org.eclipse.platform:org.eclipse.equinox.registry:3.11.200
+  in org.eclipse.platform:org.eclipse.jdt.core:3.31.0
+  ... (18 total Eclipse platform transitive POMs)
+
+Source: Spotless greclipse() formatter pulls Eclipse platform dependencies.
+Impact: Warnings only, build succeeds.
+

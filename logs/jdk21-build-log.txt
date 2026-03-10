@@ -1,0 +1,31 @@
+JDK 21 Build Log — ph-ee-connector-common
+==================================================
+Date: March 2026
+Environment: JDK 21.0.10 Temurin, Gradle 7.3 (original), Windows 11
+
+=== ATTEMPT 1: Gradle 7.3 + Lombok 1.18.24 ===
+
+> Task :compileJava FAILED
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> java.lang.NoSuchFieldError: Class com.sun.tools.javac.tree.JCTree$JCImport
+  does not have member field 'com.sun.tools.javac.tree.JCTree qualid'
+
+BUILD FAILED in 3s
+
+=== ATTEMPT 2: Gradle 7.3 + Lombok 1.18.34 ===
+
+> startup failed:
+  1 error
+BUILD FAILED in 1s
+
+Root cause: Gradle 7.3 Groovy 3.0.9 ClassSignatureParser failure on JDK 21.
+
+=== ATTEMPT 3: Gradle 8.12.1 + Lombok 1.18.34 ===
+
+> Task :compileJava
+9 warnings (all pre-existing)
+BUILD SUCCESSFUL in 14s
+
