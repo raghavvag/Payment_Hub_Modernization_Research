@@ -1,0 +1,63 @@
+# Payment Hub EE — Connector Architecture Diagram
+
+```
+                    ┌─────────────────────────────────┐
+                    │       mifos-platform-bom         │
+                    │    (Centralized Version Gov.)     │
+                    │                                   │
+                    │  Spring Boot 3.2.5               │
+                    │  Camel 4.4.0                     │
+                    │  Zeebe 8.5.0                     │
+                    │  Jakarta EE 10                   │
+                    │  Netty 4.1.109 (via Boot BOM)    │
+                    └────────────┬──────────────────────┘
+                                 │ platform()
+                    ┌────────────▼──────────────────────┐
+                    │      ph-ee-connector-common        │
+                    │       (Foundation Library)          │
+                    │                                    │
+                    │  ┌──────────┐  ┌───────────────┐  │
+                    │  │   DTOs   │  │  Interceptors │  │
+                    │  │ Mojaloop │  │  JWS/Servlet  │  │
+                    │  │  GSMA    │  │  (jakarta.*)  │  │
+                    │  │  AMS     │  └───────────────┘  │
+                    │  │ Channel  │  ┌───────────────┐  │
+                    │  │ Vouchers │  │ Camel Routes  │  │
+                    │  └──────────┘  │ Auth/Error    │  │
+                    │                └───────────────┘  │
+                    │  ┌──────────┐  ┌───────────────┐  │
+                    │  │  Crypto  │  │  Zeebe Vars   │  │
+                    │  │(javax.  │  │  & Utilities  │  │
+                    │  │ crypto) │  └───────────────┘  │
+                    │  └──────────┘                     │
+                    └──┬──────────────┬─────────────┬───┘
+                       │              │             │
+            ┌──────────▼───┐  ┌──────▼──────┐  ┌───▼──────────┐
+            │  ams-mifos   │  │   channel   │  │bulk-processor│
+            │              │  │             │  │              │
+            │ Fineract AMS │  │ REST APIs   │  │ Batch Files  │
+            │ Integration  │  │ Payment     │  │ Processing   │
+            │              │  │ Initiation  │  │              │
+            │ ┌──────────┐ │  │ ┌─────────┐ │  │ ┌──────────┐ │
+            │ │  Camel   │ │  │ │  Camel  │ │  │ │  Camel   │ │
+            │ │  Routes  │ │  │ │  Routes │ │  │ │  Routes  │ │
+            │ │  + CXF   │ │  │ │ Channel │ │  │ │  Bulk    │ │
+            │ └──────────┘ │  │ │  GSMA   │ │  │ └──────────┘ │
+            │ ┌──────────┐ │  │ └─────────┘ │  │ ┌──────────┐ │
+            │ │  Zeebe   │ │  │ ┌─────────┐ │  │ │  Zeebe   │ │
+            │ │ Workers  │ │  │ │  Zeebe  │ │  │ │ Workers  │ │
+            │ │ block    │ │  │ │ Workers │ │  │ │ split    │ │
+            │ │ book     │ │  │ │ 11 types│ │  │ │ format   │ │
+            │ │ release  │ │  │ └─────────┘ │  │ │ merge    │ │
+            │ └──────────┘ │  │ ┌─────────┐ │  │ │ order    │ │
+            │ ┌──────────┐ │  │ │  Redis  │ │  │ └──────────┘ │
+            │ │ Fineract │ │  │ └─────────┘ │  │ ┌──────────┐ │
+            │ │ REST API │ │  │ ┌─────────┐ │  │ │ S3/Azure │ │
+            │ │ Client   │ │  │ │ GSMA    │ │  │ │ Storage  │ │
+            │ └──────────┘ │  │ │ Stubs   │ │  │ └──────────┘ │
+            └──────────────┘  │ └─────────┘ │  │ ┌──────────┐ │
+                              └─────────────┘  │ │  Kafka   │ │
+                                               │ └──────────┘ │
+                                               └──────────────┘
+```
+
